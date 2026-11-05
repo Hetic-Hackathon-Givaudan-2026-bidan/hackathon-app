@@ -40,9 +40,10 @@
   // comme avec VS Code. Dans le conteneur, écoutez sur 0.0.0.0 (ex. `vite --host`).
   "forwardPorts": [3000, 5173, "db:5432"],
 
-  // Une fois, à la création du conteneur.
+  // Une fois, à la création : les dépendances, et le fichier .env local.
   // Forme tableau obligatoire pour Zed : il casse la forme chaîne (il la relance
   // dans un second `sh -c` sans guillemets, et seul `git` est exécuté).
   // Pas d'argument contenant des espaces : Zed les recolle sans guillemets.
-  "postCreateCommand": ["git", "config", "--global", "--add", "safe.directory", "/workspace"],
+  // D'où le script : les `&&` et `||` y sont, pas ici.
+  "postCreateCommand": ["sh", "/workspace/.devcontainer/post-create.sh"],
 }
