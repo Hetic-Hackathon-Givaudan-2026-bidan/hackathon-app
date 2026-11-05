@@ -10,8 +10,12 @@
 
   // "source.fixAll.eslint" : ESLint corrige d'abord, puis Prettier formate
   "languages": {
-    "JavaScript": { "code_actions_on_format": { "source.fixAll.eslint": true } },
-    "TypeScript": { "code_actions_on_format": { "source.fixAll.eslint": true } },
+    "JavaScript": {
+      "code_actions_on_format": { "source.fixAll.eslint": true },
+    },
+    "TypeScript": {
+      "code_actions_on_format": { "source.fixAll.eslint": true },
+    },
     "TSX": { "code_actions_on_format": { "source.fixAll.eslint": true } },
   },
 }
