@@ -34,13 +34,11 @@
     },
   },
 
-  // Les ports 3000 et 5173 sont publiés dans compose.yaml, sur 127.0.0.1 uniquement.
-  // Pas de forwardPorts : Zed les publierait sur toutes les interfaces (tout le réseau).
-  // Et on dit à VS Code de ne pas les re-transférer (ils sont déjà sur localhost).
-  "portsAttributes": {
-    "3000": { "label": "API", "onAutoForward": "ignore" },
-    "5173": { "label": "Front", "onAutoForward": "ignore" },
-  },
+  // L'API, le front, et PostgreSQL pour un client comme TablePlus
+  // ⚠ Zed : ces ports sont publiés via Docker sur TOUTES les interfaces (accessibles
+  // depuis le réseau, ex. le Wi-Fi de l'école), pas seulement sur votre machine
+  // comme avec VS Code. Dans le conteneur, écoutez sur 0.0.0.0 (ex. `vite --host`).
+  "forwardPorts": [3000, 5173, "db:5432"],
 
   // Une fois, à la création du conteneur.
   // Forme tableau obligatoire pour Zed : il casse la forme chaîne (il la relance
