@@ -1,0 +1,21 @@
+# La stack de développement. Versions figées : les mêmes qu'en production.
+name: hackathon
+
+services:
+  # Le poste de travail : l'éditeur (VS Code ou Zed) s'y attache, on y lance l'API et le front
+  dev:
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+    command: sleep infinity
+    # Redémarre avec Docker (reboot du Mac, d'OrbStack…) : sinon Zed ne peut plus
+    # se reconnecter depuis ses projets récents. Un arrêt volontaire reste respecté.
+    restart: unless-stopped
+    # L'API et le front, accessibles depuis votre navigateur, et seulement depuis
+    # votre machine (127.0.0.1) : pas depuis le reste du réseau (Wi-Fi de l'école…).
+    # Dans le conteneur, les serveurs doivent écouter sur 0.0.0.0 (ex. `vite --host`).
+    ports:
+      - "127.0.0.1:3000:3000"
+      - "127.0.0.1:5173:5173"
+    volumes:
+      - .:/workspace:cached
