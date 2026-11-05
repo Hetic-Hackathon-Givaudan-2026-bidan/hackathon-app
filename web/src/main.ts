@@ -2,6 +2,7 @@ type Question = { id: number; question: string; answer: string };
 
 const health = document.querySelector('#health')!;
 const list = document.querySelector('#questions')!;
+const form = document.querySelector('form')!;
 
 async function refresh() {
   const status = await fetch('/api/health').then((r) => r.json());
@@ -18,5 +19,17 @@ async function refresh() {
     }),
   );
 }
+
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const question = new FormData(form).get('question');
+  await fetch('/api/questions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ question }),
+  });
+  form.reset();
+  await refresh();
+});
 
 refresh();
